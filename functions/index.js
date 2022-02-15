@@ -2,7 +2,9 @@ require("dotenv").config();
 const functions = require("firebase-functions");
 const express = require("express");
 const cors = require("cors");
-const stripe = require("stripe")(process.env.stripeSecretKey);
+const stripe = require("stripe")(
+  "sk_test_51KTLopFaFY5u4ivSLpZKAeWa2TQC3CQaNYhSLOJlx0cixuAlZvKlF8MOx9vgOMIYxrz0XFod9rqlZkS8lT0bb59N00DFEhw1E6"
+);
 
 // API
 
@@ -16,7 +18,6 @@ app.use(express.json());
 app.get("/", (req, res) => res.status(200).send("Hello World"));
 app.post("/payments/create", async (req, res) => {
   const { total } = req.query;
-  console.log("Payment request recieved ", total);
   const paymentIntent = await stripe.paymentIntents.create({
     amount: total,
     currency: "usd",

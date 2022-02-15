@@ -26,7 +26,7 @@ const Orders = () => {
       setOrders([]);
     }
   }, [user]);
-  console.log(orders);
+
   return (
     <div className="orders">
       <h1>Your Orders</h1>
