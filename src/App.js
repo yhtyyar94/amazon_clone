@@ -4,9 +4,17 @@ import Home from "./Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Checkout from "./Checkout";
 import Login from "./Login";
+import Payment from "./Payment";
 import { useEffect } from "react";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import Orders from "./Orders";
+
+const promise = loadStripe(
+  "pk_test_51KTLopFaFY5u4ivSB6zzmiRY92SvlyhPHv7ws8fZYGSEyJtrMAFrKEdCfRNQJUk9H59vFsLjqbjdb6Shqnu4Orz2000XDBurcp"
+);
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
@@ -50,6 +58,28 @@ function App() {
               <>
                 <Header />
                 <Home />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/payment"
+            element={
+              <>
+                <Header />
+                <Elements stripe={promise}>
+                  <Payment />
+                </Elements>
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/orders"
+            element={
+              <>
+                <Header />
+                <Orders />
               </>
             }
           />
